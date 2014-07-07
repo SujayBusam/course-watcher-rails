@@ -45,6 +45,8 @@ gem 'bootstrap-sass', '~> 3.2.0'
 gem 'sprockets', '2.11.0'
 gem 'autoprefixer-rails'
 
+gem 'bcrypt-ruby', '3.1.2'
+
 
 group :development, :test do
   gem 'rspec-rails', '2.13.1'
