@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CourseWatcher</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <title><%= full_title(yield(:title)) %></title>
+
+  <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= render 'layouts/shim' %>
 </head>
 <body>
+  <%= render 'layouts/header' %>
 
-<%= yield %>
+  <%= yield %>
+  
+  <%= render 'layouts/footer' %>
 
 </body>
+  <%= debug(params) if Rails.env.development? %>
 </html>
