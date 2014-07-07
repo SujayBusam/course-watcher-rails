@@ -1,6 +1,0 @@
-# CourseWatch
-
-A rails web app that notifies you when a given course has availability for
-enrollment. 
-
-A work in progress. Feel free to contribute.
