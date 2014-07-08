@@ -4,6 +4,8 @@ describe "UserPages" do
   let(:base_title) { "CourseWatch" }  
   subject { page } 
 
+  ###### SIGNUP ######
+
   describe "Signup page" do
     before { visit new_user_path }
     let(:submit) { 'Submit' }
@@ -52,7 +54,24 @@ describe "UserPages" do
       it "should create a new user" do
         expect { click_button submit }.to change(User, :count).by(1)
       end
+
+      describe "after saving user" do
+        before { click_button submit }
+        let(:user) { User.find_by(email: 'user@example.com') }
+        
+        it { should have_content(user.email) }
+        it { should have_content('Welcome to CourseWatch!')}
+      end
     end
+  end
+
+  #### PROFILE PAGE #####
+
+  describe "profile page" do
+    let(:user) { FactoryGirl.create(:user) }
+    before { visit user_path(user) }
+
+    it { should have_content(user.email) }
   end
 end
 

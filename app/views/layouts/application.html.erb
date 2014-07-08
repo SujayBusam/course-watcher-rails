@@ -10,10 +10,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= render 'layouts/shim' %>
 </head>
+
 <body>
   <%= render 'layouts/header' %>
+  <div class="body-container">
+    
+    <% flash.each do |key, value| %>
+        <%= content_tag(:div, value, class: "alert alert-dismissable alert-#{key}") %>
+    <% end %>
 
-  <%= yield %>
+    <%= yield %>
+
+  </div>
   
   <%= render 'layouts/footer' %>
 
