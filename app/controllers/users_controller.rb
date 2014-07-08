@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:sucess] = 'Welcome to CourseWatch!'
+      flash[:success] = 'Welcome to CourseWatch!'
       # redirect_to user_path(@user)
       redirect_to @user
     else

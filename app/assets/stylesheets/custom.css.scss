@@ -75,3 +75,7 @@ footer {
   margin-top: 45px;
   @include box_sizing;
 }
+
+a:hover {
+  color: green;
+}

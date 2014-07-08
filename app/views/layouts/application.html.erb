@@ -14,9 +14,12 @@
 <body>
   <%= render 'layouts/header' %>
   <div class="body-container">
-    
+
     <% flash.each do |key, value| %>
-        <%= content_tag(:div, value, class: "alert alert-dismissable alert-#{key}") %>
+      <div class="alert alert-dismissable alert-<%= key %>">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <%= value %>
+      </div>
     <% end %>
 
     <%= yield %>
