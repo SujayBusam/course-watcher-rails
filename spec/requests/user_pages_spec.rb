@@ -12,7 +12,7 @@ describe "UserPages" do
 
     it { should have_content('Sign up') }
     it { should have_button(submit) }
-    it { should have_title("#{base_title} | Sign Up")}
+    it { should have_title("#{base_title} | Sign Up") }
 
     describe "With invalid information" do
       it "should not create a user" do
@@ -73,6 +73,36 @@ describe "UserPages" do
     before { visit user_path(user) }
 
     it { should have_content(user.email) }
+  end
+
+
+  #### EDIT PAGE #####
+
+  describe "edit page" do
+    let(:user) { FactoryGirl.create(:user) }
+    before { visit edit_user_path(user) }
+
+    it { should have_title("Edit") }
+
+    describe "with invalid information" do
+      before { click_button "Save changes" }
+
+      it { should have_selector('div.alert.alert-danger') }
+    end
+
+    describe "with valid information" do
+      let(:new_email) { "new@example.com" }
+      before do
+        fill_in "inputEmail",            with: new_email
+        fill_in "inputPassword",         with: user.password
+        fill_in "inputConfirmation",     with: user.password
+        click_button "Save changes"
+      end
+
+      it { should have_selector('div.alert.alert-success') }
+      # it { should have_link('Sign out', href: signout_path) }
+      specify { expect(user.reload.email).to eq new_email }
+    end
   end
 end
 
