@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-  
+  before_action :signed_in_user, only: [:edit, :update, :show]
+  before_action :correct_user, only: [:edit, :update, :show]
+
   def new
     @user = User.new
   end
@@ -8,6 +10,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:success] = 'Welcome to CourseWatch!'
+      sign_in @user
       # redirect_to user_path(@user)
       redirect_to @user
     else
@@ -21,7 +24,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+ 
   end
 
   def update
@@ -38,5 +41,21 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:email, :password, :password_confirmation)
+    end
+
+    # Before filters
+    def signed_in_user
+      unless signed_in?
+        flash[:warning] = "Not authorized! Please sign in."
+        redirect_to signin_path
+      end
+    end
+
+    def correct_user
+      @user = User.find(params[:id])
+      unless current_user?(@user)
+        flash[:warning] = "Not authorized to view that page!"
+        redirect_to root_url
+      end
     end
 end

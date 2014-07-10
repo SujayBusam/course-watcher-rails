@@ -7,9 +7,12 @@ CourseWatcher::Application.routes.draw do
   match '/help', to: 'static_pages#help', via: 'get'
   match '/faq', to: 'static_pages#faq', via: 'get'
 
+
   match '/signup', to: 'users#new', via: 'get'
   match '/signin', to: 'sessions#new', via: 'get'
   match '/signout', to: 'sessions#destroy', via: 'delete'
+
+  # match '/profile', to: 'users#show', via: 'get'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

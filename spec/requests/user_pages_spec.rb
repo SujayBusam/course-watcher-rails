@@ -71,6 +71,7 @@ describe "UserPages" do
   describe "profile page" do
     let(:user) { FactoryGirl.create(:user) }
     before { visit user_path(user) }
+    before { sign_in user }
 
     it { should have_content(user.email) }
   end
@@ -80,6 +81,7 @@ describe "UserPages" do
 
   describe "edit page" do
     let(:user) { FactoryGirl.create(:user) }
+    before { sign_in user }
     before { visit edit_user_path(user) }
 
     it { should have_title("Edit") }
