@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe Course do
   
-  before do
-    @course = Course.new(subject: "COSC", number: 10)
-  end
+  let(:user) { FactoryGirl.create(:user) }
+  before { @course = Course.new(subject: "COSC", number: 10) }
+
 
   subject { @course }
 

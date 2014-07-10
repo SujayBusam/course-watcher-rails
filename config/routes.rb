@@ -1,4 +1,7 @@
 CourseWatcher::Application.routes.draw do
+  get "courses/create"
+  get "courses/edit"
+  get "courses/destroy"
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
 
