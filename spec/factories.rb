@@ -4,4 +4,9 @@ FactoryGirl.define do
     password "foobar"
     password_confirmation "foobar"
   end
+
+  factory :course do
+    subject "COSC"
+    number 10
+  end
 end

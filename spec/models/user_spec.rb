@@ -15,6 +15,10 @@ describe User do
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
 
+  # Course selection
+  it { should respond_to(:course_selections) }
+  it { should respond_to(:courses) }
+
   it { should be_valid }
 
   ##### EMAIL #####
@@ -90,6 +94,27 @@ describe User do
   describe "remember token" do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
+  end
+
+
+  #### COURSE SELECTION #####
+
+  describe "watching a course" do
+    let(:course) { FactoryGirl.create(:course) }
+    before do
+      @user.save
+      @user.watch!(course)
+    end
+
+    it { should be_watching(course) }
+    its(:courses) { should include(course) }
+
+    describe "then removing course" do
+      before { @user.unwatch!(course) }
+
+      it { should_not be_watching(course) }
+      its(:courses) { should_not include(course) }
+    end
   end
 end
 

@@ -2,6 +2,10 @@ class User < ActiveRecord::Base
   before_save { self.email = self.email.downcase }
   before_create :create_remember_token
 
+  # Database associations
+  has_many :course_selections
+  has_many :courses, through: :course_selections, dependent: :destroy
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+\.[a-z]+\z/i
 
   has_secure_password
@@ -19,6 +23,20 @@ class User < ActiveRecord::Base
 
   def User.digest(token)
     Digest::SHA1.hexdigest(token.to_s)
+  end
+
+  # Course selection methods
+
+  def watch!(course)
+    self.course_selections.create!(course_id: course.id)
+  end
+
+  def unwatch!(course)
+    self.course_selections.find_by(course_id: course.id).destroy
+  end
+
+  def watching?(course)
+    self.course_selections.find_by(course_id: course.id)
   end
 
   private

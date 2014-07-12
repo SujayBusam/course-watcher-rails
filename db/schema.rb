@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140710011721) do
+ActiveRecord::Schema.define(version: 20140712134930) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "course_selections", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "course_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "course_selections", ["course_id"], name: "index_course_selections_on_course_id", using: :btree
+  add_index "course_selections", ["user_id", "course_id"], name: "index_course_selections_on_user_id_and_course_id", unique: true, using: :btree
+  add_index "course_selections", ["user_id"], name: "index_course_selections_on_user_id", using: :btree
 
   create_table "courses", force: true do |t|
     t.string   "subject"
