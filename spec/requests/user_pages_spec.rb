@@ -22,6 +22,7 @@ describe "UserPages" do
 
     describe "With password too short" do
       before do
+        fill_in "inputName", with: 'John Doe'
         fill_in "inputEmail", with: 'user@example.com'
         fill_in "inputPassword", with: 'fooba'
         fill_in "inputConfirmation", with: 'fooba'
@@ -34,6 +35,7 @@ describe "UserPages" do
 
     describe "With password too long" do
       before do
+        fill_in "inputName", with: 'John Doe'
         fill_in "inputEmail", with: 'user@example.com'
         fill_in "inputPassword", with: ('f' * 26)
         fill_in "inputConfirmation", with: ('f' * 26)
@@ -46,6 +48,7 @@ describe "UserPages" do
 
     describe "With valid information" do
       before do
+        fill_in "inputName", with: 'John Doe'
         fill_in "inputEmail", with: 'user@example.com'
         fill_in "inputPassword", with: 'foobar'
         fill_in "inputConfirmation", with: 'foobar'
@@ -59,9 +62,9 @@ describe "UserPages" do
         before { click_button submit }
         let(:user) { User.find_by(email: 'user@example.com') }
         
-        it { should have_content(user.email) }
+        it { should have_content(user.name) }
         it { should have_selector('div.alert.alert-success', text: 'Welcome') }
-        # it { should have_link('Sign out') }
+        it { should have_link('Sign out') }
       end
     end
   end
@@ -70,9 +73,12 @@ describe "UserPages" do
 
   describe "profile page" do
     let(:user) { FactoryGirl.create(:user) }
-    before { visit user_path(user) }
-    before { sign_in user }
+    before do
+      sign_in user
+      visit user_path(user)
+    end
 
+    it { should have_content(user.name) }
     it { should have_content(user.email) }
   end
 

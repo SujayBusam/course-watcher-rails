@@ -12,6 +12,5 @@ class Course < ActiveRecord::Base
   def watched_by?(user)
     self.course_selections.find_by(user_id: user.id)
   end
-
   
 end

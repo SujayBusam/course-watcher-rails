@@ -2,10 +2,13 @@ require 'spec_helper'
 
 describe User do
   
-  before { @user = User.new(email: 'user@example.com', password: "foobar",
+  before { @user = User.new(name: "John Doe", 
+                            email: 'user@example.com', 
+                            password: "foobar",
                             password_confirmation: "foobar") }
   subject { @user }
 
+  it { should respond_to(:name) }
   it { should respond_to(:email) }
   it { should respond_to(:password_digest) }
   it { should respond_to(:authenticate) }
@@ -20,6 +23,18 @@ describe User do
   it { should respond_to(:courses) }
 
   it { should be_valid }
+
+  #### NAME ####
+
+  describe "when name is not present" do
+    before { @user.name = " " }
+    it { should_not be_valid }
+  end
+
+  describe "when name is too long" do
+    before { @user.name = ('a' * 36 ) }
+    it { should_not be_valid }
+  end
 
   ##### EMAIL #####
   describe "when email is not present" do
@@ -52,8 +67,9 @@ describe User do
 
   #### PASSWORD #####
   describe "when password is not present" do
-    before { @user = User.new(email: 'foobar@example.com', password: " ",
-                              password_confirmation: " ") }
+    before do
+      @user.password = @user.password_confirmation = " "
+    end
     it { should_not be_valid }  
   end
 
@@ -67,13 +83,17 @@ describe User do
     it { should_not be_valid }
   end
 
-  describe "when password is too short" do
+  describe "when password is too long" do
     before { @user.password_confirmation = @user.password = 'a'*26 }
     it { should_not be_valid }
   end
 
   describe "return value of authenticate method" do
-    before { @user.save }
+    before do
+      @user.password = "foobar"
+      @user.password_confirmation = "foobar"
+      @user.save
+    end
     let(:found_user) { User.find_by(email: @user.email) }
 
     describe "with valid password" do
