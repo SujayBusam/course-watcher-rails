@@ -28,8 +28,16 @@ class User < ActiveRecord::Base
 
   # Course selection methods
 
-  def watch!(course)
-    self.course_selections.create!(course_id: course.id)
+  def watch!(course_subject, course_number)
+    # If the course already exists in the database, create a course selection,
+    # otherwise create a course (which will also create the course selection)
+    
+    course = Course.find_by(subject: course_subject, number: course_number)
+    if course
+      self.course_selections.create!(course_id: course.id)
+    else
+      self.courses.create!(subject: course_subject, number: course_number)
+    end
   end
 
   def unwatch!(course)

@@ -13,6 +13,15 @@ describe Course do
   it { should respond_to(:course_selections) }
   it { should respond_to(:users) }
 
+  describe "when a duplicate course is created" do
+    before do
+      duplicate_course = @course.dup
+      duplicate_course.save
+    end
+
+    it { should_not be_valid }
+  end
+
   ###### COURSE SUBJECT ######
 
   describe "when subject is not present" do
@@ -29,13 +38,10 @@ describe Course do
 
   ##### COURSE SELECTION #####
 
-  describe "course selection" do
-    before do
-      @course.save
-      user.watch!(@course)
-    end
+  # describe "course selection" do
+  #   before { user.watch!(@course.subject, @course.number) }
 
-    it { should be_watched_by(user) }
-    its(:users) { should include(user) }
-  end
+  #   it { should be_watched_by(user) }
+  #   its(:users) { should include(user) }
+  # end
 end

@@ -123,7 +123,7 @@ describe User do
     let(:course) { FactoryGirl.create(:course) }
     before do
       @user.save
-      @user.watch!(course)
+      @user.watch!(course.subject, course.number)
     end
 
     it { should be_watching(course) }
@@ -134,6 +134,21 @@ describe User do
 
       it { should_not be_watching(course) }
       its(:courses) { should_not include(course) }
+    end
+  end
+
+  describe "creating a new course" do
+    before do
+      @user.save
+      @user.courses.create!(subject: "COSC", number: 50)
+    end
+    let(:course) { @user.courses.find_by(subject: "COSC") }
+
+    it { should be_watching(course) }
+    its(:courses) { should include(course) }
+
+    describe "then removing created course" do
+      
     end
   end
 end
