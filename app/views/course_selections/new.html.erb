@@ -6,6 +6,8 @@
   <fieldset>
     <legend>Choose a course</legend>
     <div class="form-group">
+
+      <%= render 'shared/error_messages', object: @course_selection_or_course %>
       
      <%= label_tag :course_subject, "Course Subject", 
                     class: "col-lg-2 control-label" %> 
@@ -26,5 +28,5 @@
   </fieldset>
 <% end %>
 
-<%= link_to "Back to profile", user_path(@user), class: "btn btn-default" %>
+<%= link_to "Back to profile", user_path(current_user), class: "btn btn-default" %>
 

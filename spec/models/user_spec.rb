@@ -123,7 +123,7 @@ describe User do
     let(:course) { FactoryGirl.create(:course) }
     before do
       @user.save
-      @user.watch!(course.subject, course.number)
+      @user.watch(course.subject, course.number)
     end
 
     it { should be_watching(course) }

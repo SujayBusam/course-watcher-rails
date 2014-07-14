@@ -1,7 +1,7 @@
-<% if @user.errors.any? %>
+<% if object.errors.any? %>
   <div class="alert alert-dismissable alert-danger">
     <button type="button" class="close" data-dismiss="alert">×</button>
-    <% @user.errors.full_messages.each do |msg| %>
+    <% object.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>     
     <% end %>
   </div>

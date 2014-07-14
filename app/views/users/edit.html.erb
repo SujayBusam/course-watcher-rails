@@ -7,7 +7,7 @@
   <fieldset>
     <legend>Update Profile</legend>
     <div class="form-group">
-      <%= render 'shared/error_messages' %>
+      <%= render 'shared/error_messages', object: f.object %>
 
       <%= f.label :email, class: "col-lg-2 control-label" %>
       <div class="col-lg-10">

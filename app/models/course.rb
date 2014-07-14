@@ -4,7 +4,7 @@ class Course < ActiveRecord::Base
   has_many :users, through: :course_selections
 
   validates :subject, presence: true
-  validates :number, presence: true
+  validates :number, presence: true, numericality: { greater_than: 0 }
   validates :subject, uniqueness: { scope: :number }
 
   # Course selection methods
