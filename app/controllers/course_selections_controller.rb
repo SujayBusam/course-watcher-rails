@@ -14,7 +14,7 @@ class CourseSelectionsController < ApplicationController
 
   def create
     current_user.watch!(params[:course_subject], (params[:course_number]).to_i)
-    redirect_to 'show'
+    redirect_to user_path(current_user)
   end
 
   def destroy
