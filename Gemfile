@@ -49,6 +49,8 @@ gem 'bcrypt-ruby', '3.1.2'
 
 gem 'faker', '1.1.2'
 
+gem 'nokogiri', '1.6.2.1'
+
 
 group :development, :test do
   gem 'rspec-rails', '2.13.1'

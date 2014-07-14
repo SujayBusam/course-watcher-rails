@@ -1,0 +1,4 @@
+module CourseSelectionsHelper
+
+  
+end

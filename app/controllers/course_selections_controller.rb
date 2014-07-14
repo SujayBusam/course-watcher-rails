@@ -34,7 +34,4 @@ class CourseSelectionsController < ApplicationController
   def destroy
     
   end
-
-
-
 end

@@ -79,12 +79,12 @@ describe "UserPages" do
     end
 
     it { should have_content(user.name) }
-    it { should have_content(user.email) }
+    it { should have_title(user.name) }
 
     describe "courses list" do
       before do
-        user.watch!("cosc", 10)
-        user.watch!("astr", 2)
+        user.watch("COSC", 10)
+        user.watch("ASTR", 2)
         visit user_path(user)
       end
 
@@ -129,5 +129,3 @@ describe "UserPages" do
     end
   end
 end
-
-
