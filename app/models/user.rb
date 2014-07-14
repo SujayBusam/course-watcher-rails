@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
     # otherwise create a course (which will also create the course selection)
     
     course = Course.find_by(subject: course_subject, number: course_number)
-    if course
+    if !course.nil?
       self.course_selections.create!(course_id: course.id)
     else
       self.courses.create!(subject: course_subject, number: course_number)

@@ -80,6 +80,22 @@ describe "UserPages" do
 
     it { should have_content(user.name) }
     it { should have_content(user.email) }
+
+    describe "courses list" do
+      before do
+        user.watch!("cosc", 10)
+        user.watch!("astr", 2)
+        visit user_path(user)
+      end
+
+      it "should have the courses listed" do
+        user.courses.each do |course|
+          expect(page).to have_content(course.subject) 
+          expect(page).to have_content(course.number) 
+        end
+      end
+    end
+
   end
 
 

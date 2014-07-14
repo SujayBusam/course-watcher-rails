@@ -2,9 +2,11 @@ class CoursesController < ApplicationController
   def create
   end
 
-  def edit
+  def destory
+
   end
 
-  def destroy
+  def show
+    
   end
 end

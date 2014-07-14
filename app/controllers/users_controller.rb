@@ -19,8 +19,9 @@ class UsersController < ApplicationController
   end
 
   def show
-    # @user = User.find_by(id: params[:id])
     @user = User.find(params[:id])
+    @courses = @user.courses
+    @current_course_count = 1
   end
 
   def edit
@@ -41,6 +42,7 @@ class UsersController < ApplicationController
 
   end
 
+
   private
 
     def user_params
@@ -58,7 +60,7 @@ class UsersController < ApplicationController
     def correct_user
       @user = User.find(params[:id])
       unless current_user?(@user)
-        flash[:warning] = "Not authorized to view that page!"
+        flash[:warning] = "You're not allowed to view that page!"
         redirect_to root_url
       end
     end

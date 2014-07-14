@@ -1,6 +1,7 @@
 CourseWatcher::Application.routes.draw do
   resources :users, only: [:new, :create, :show, :edit, :update, :destroy]
-  resources :courses, only: [:create, :edit, :destroy]
+  resources :courses, only: [:create, :show, :destroy]
+  resources :course_selections, only: [:new, :create, :destroy, :show]
   resources :sessions, only: [:new, :create, :destroy]
 
   root 'static_pages#home'

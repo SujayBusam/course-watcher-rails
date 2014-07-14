@@ -1,6 +1,10 @@
 <header class="navbar navbar-inverse">
   <div class="navbar-header">
-    <%= link_to "CourseWatch", root_path, class: "navbar-brand" %>      
+    <% if !signed_in? %>
+      <%= link_to "CourseWatch", root_path, class: "navbar-brand" %>
+    <% else %>
+      <%= link_to "CourseWatch", user_path(current_user), class: "navbar-brand" %>
+    <% end %> 
   </div>
 
   <div class="navbar-collapse collapse navbar-inverse-collapse">

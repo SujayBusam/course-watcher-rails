@@ -9,7 +9,7 @@ end
 def make_users
   10.times do |n|
     name  = Faker::Name.name
-    email = "example-#{n+1}@example.com"
+    email = "user#{n+1}@example.com"
     password  = "foobar"
     User.create!(name:     name,
                  email:    email,
