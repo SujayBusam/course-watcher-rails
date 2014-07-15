@@ -33,9 +33,9 @@
         <tr class="info">
           <td><%= course.subject %> <%= course.number %></td>
           <% if course.available? %>
-            <td id="available">Available!</td>
+            <td class="text-success" id="availability">Available</td>
           <% else %>
-            <td id="not-available">Not available</td>
+            <td class="text-danger" id="availability">Not available</td>
           <% end %>
           <td><%= course.instructor %></td>
           <td><%= course.period %></td>
@@ -48,7 +48,7 @@
             <% end %>  
           </td>
           <td><a href="<%= course_selection_path(course.id) %>">More info</a></td>
-        </tr>
+        </tr>    
       <% end %>
     </tbody>
   </table>
