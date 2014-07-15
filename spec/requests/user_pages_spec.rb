@@ -80,6 +80,7 @@ describe "UserPages" do
 
     it { should have_content(user.name) }
     it { should have_title(user.name) }
+    it { should have_content("Looks like you haven't added any courses yet.") }
 
     describe "courses list" do
       before do

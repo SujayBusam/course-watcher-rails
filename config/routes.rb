@@ -1,6 +1,6 @@
 CourseWatcher::Application.routes.draw do
   resources :users, only: [:new, :create, :show, :edit, :update, :destroy]
-  resources :courses, only: [:create, :show, :destroy]
+  resources :courses, only: [:show]
   resources :course_selections, only: [:new, :create, :destroy, :show]
   resources :sessions, only: [:new, :create, :destroy]
 

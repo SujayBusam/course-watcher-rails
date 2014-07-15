@@ -85,3 +85,13 @@ a:hover {
   border-radius: 0;
   box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
 }
+
+#available {
+  color: #43ac6a;
+  font-weight: bold; 
+}
+
+#not-available {
+  color: #f04124;
+  font-weight: bold;
+}

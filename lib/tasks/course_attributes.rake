@@ -20,7 +20,7 @@ task update_course_attributes: :environment do
 
       uri = URI.parse('http://oracle-www.dartmouth.edu/dart/groucho/timetable.course_quicksearch')
       response_body = (Net::HTTP.post_form(uri, post_data)).body
-      response_body.delete!("\n")
+      response_body.delete!("\n") # Response body was littered with new lines
       page = Nokogiri::HTML(response_body)
 
       table = page.at_css('div.data-table')

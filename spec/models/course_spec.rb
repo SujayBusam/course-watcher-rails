@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Course do
   
   let(:user) { FactoryGirl.create(:user) }
-  before { @course = Course.new(subject: "COSC", number: 10) }
+  before { @course = Course.new(subject: "COSC", number: 30) }
 
   subject { @course }
 
@@ -39,9 +39,10 @@ describe Course do
   ##### COURSE SELECTION #####
 
   # describe "course selection" do
-  #   before { user.watch!(@course.subject, @course.number) }
+  #   before { user.watch(@course.subject, @course.number) }
 
   #   it { should be_watched_by(user) }
   #   its(:users) { should include(user) }
   # end
+
 end
