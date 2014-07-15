@@ -24,8 +24,15 @@ class CourseSelectionsController < ApplicationController
       if @course_selection_or_course.errors.count > 0
         render 'new'
       else
-        flash[:success] = "Course: #{@course_selection_or_course.subject} 
-        #{@course_selection_or_course.number} added."
+        if @course_selection_or_course.class == CourseSelection
+          subject = @course_selection_or_course.course.subject
+          number = @course_selection_or_course.course.number
+        else
+          subject = @course_selection_or_course.subject
+          number = @course_selection_or_course.number
+        end
+   
+        flash[:success] = "Course: #{@subject} #{number} added."
         redirect_to user_path(current_user)
       end
     end

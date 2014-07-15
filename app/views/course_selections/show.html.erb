@@ -2,3 +2,13 @@
 
 <p><%= @course.subject %> <%= @course.number %> started watching at 
 <%= @course_selection.created_at %></p>
+
+<p>
+  Limit: 
+  <%= @course.limit %>
+  <br>
+  Enrollment: <%= @course.enrollment %>
+  <br>
+  Instructor:
+  <%= @course.instructor %>
+</p>
