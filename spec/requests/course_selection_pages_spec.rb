@@ -35,7 +35,7 @@ describe "CourseSelectionPages" do
     describe "with valid information" do
       before do
         fill_in "inputSubject", with: "COSC"
-        fill_in "inputNumber", with: "50"
+        fill_in "inputNumber", with: "30"
       end
 
       it "should create a course selection" do
