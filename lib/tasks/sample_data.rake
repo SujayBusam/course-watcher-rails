@@ -24,7 +24,7 @@ def make_course_selections
     subject = course_subjects[n]
     number = n + 5
     users.each do |user|
-      user.watch!(subject, number)
+      user.watch(subject, number)
     end
   end
 end

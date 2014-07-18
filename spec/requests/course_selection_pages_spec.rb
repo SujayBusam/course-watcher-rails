@@ -1,11 +1,13 @@
 require 'spec_helper'
 
 describe "CourseSelectionPages" do
+  let(:user) { FactoryGirl.create(:user) }
   subject { page }
   let(:add_course) { "Add course" }
 
+  ##### NEW COURSE SELECTION ######
+
   describe "new course selection page" do
-    let(:user) { FactoryGirl.create(:user) }
     before do
       sign_in user
       visit new_course_selection_path
@@ -86,7 +88,33 @@ describe "CourseSelectionPages" do
 
         it { should have_selector('div.alert.alert-danger') }
       end
-
     end
+
+    describe "trying to watch a course with multiple sections" do
+      before do
+        fill_in "inputSubject", with: "ECON"
+        fill_in "inputNumber", with: 1
+        click_button(add_course)
+      end
+
+      it { should have_title("New Course") }
+      it { should have_content("ECON 1") }
+      it { should have_content("Section") }
+    end
+  end
+
+  ##### COURSE SELECTION SHOW ######
+
+  describe "show page" do
+    before do
+      sign_in user
+      visit new_course_selection_path
+      fill_in "inputSubject", with: "COSC"
+      fill_in "inputNumber", with: "30"
+      click_button(add_course)
+      click_link('More info')
+    end
+
+    it { should have_title("COSC 30") }
   end
 end

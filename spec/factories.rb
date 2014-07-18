@@ -9,5 +9,6 @@ FactoryGirl.define do
   factory :course do
     subject "COSC"
     number 10
+    section 1
   end
 end

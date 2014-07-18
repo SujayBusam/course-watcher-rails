@@ -1,17 +1,29 @@
 class Course < ActiveRecord::Base
+  require 'net/http'
+  require 'nokogiri'
+  require 'uri'
+
   # Database associations
   has_many :course_selections
   has_many :users, through: :course_selections
 
   validates :number, presence: true, numericality: { greater_than: 0 }
-  validates :subject, uniqueness: { scope: :number },
+  validates :subject, uniqueness: { scope: [:number, :section] },
                       presence: true
 
   
-  def Course.validate_and_init(user, course_subject, course_number)
-    require 'net/http'
-    require 'nokogiri'
-    require 'uri'
+  
+
+  def available?
+    self.limit == 0 || self.limit.nil? || self.enrollment < self.limit
+  end
+
+  def watched_by?(user)
+    self.course_selections.find_by(user_id: user.id)
+  end
+
+
+  def self.validate_and_init(course_subject, course_number)
     
     post_data = { "classyear" => "2008", # Not sure why this is the case, but necessary for request
                 "subj" => "#{course_subject}",
@@ -25,68 +37,69 @@ class Course < ActiveRecord::Base
 
     table = page.at_css('div.data-table')
 
-    # if table.child.child.next is valid. In other words, is there a row there, or
-    # only the header of the table?
+    # if there is no table or an empty table, the course is not a valid one
     return nil if table.nil? || (table.child.child.next).nil? 
 
-    # Course is valid
+    # Course is valid. Get the first (maybe only) section
     row = table.child.child.next.next
 
-    # Table columns (nodes, not the text!)
-    term = row.child
-    crn = term.next
-    subj = crn.next
-    num = subj.next
-    sec = num.next
-    title = sec.next.next
-    xlist = title.next
-    period = xlist.next
-    room = period.next
-    building = room.next
-    instructor = building.next
-    wc = instructor.next
-    dist = wc.next
-    lim = dist.next
-    enrl = lim.next
-    status = enrl.next
+    course_set = Array.new
 
-    # Initialize course and its attributes
-    course = user.courses.create(subject: course_subject, 
-                                 number: course_number,
-                                 instructor: Course.get_text(instructor),
-                                 limit: Course.get_text(lim),
-                                 enrollment: Course.get_text(enrl),
-                                 status: Course.get_text(status),
-                                 crn: Course.get_text(crn),
-                                 section: Course.get_text(sec),
-                                 title: Course.get_text(title),
-                                 cross_list: Course.get_text(xlist),
-                                 period: Course.get_text(period),
-                                 building: Course.get_text(building),
-                                 world_culture: Course.get_text(wc),
-                                 distrib: Course.get_text(dist))
+    while row
+      # Table columns (nodes, not the text!)
+      term = row.child
+      crn = term.next
+      subj = crn.next
+      num = subj.next
+      sec = num.next
+      title = sec.next.next
+      xlist = title.next
+      period = xlist.next
+      room = period.next
+      building = room.next
+      instructor = building.next
+      wc = instructor.next
+      dist = wc.next
+      lim = dist.next
+      enrl = lim.next
+      status = enrl.next
 
-    # # If the course is available
-    # if enrl.text.to_i < lim.text.to_i || lim.text.to_i == 0
-    #   # Email user
-    # end
+      # Initialize course and its attributes
+      course = Course.new(subject: course_subject, 
+                         number: course_number,
+                         instructor: self.get_text(instructor),
+                         limit: self.get_text(lim),
+                         enrollment: self.get_text(enrl),
+                         status: self.get_text(status),
+                         crn: self.get_text(crn),
+                         section: self.get_text(sec),
+                         title: self.get_text(title),
+                         cross_list: self.get_text(xlist),
+                         period: self.get_text(period),
+                         building: self.get_text(building),
+                         world_culture: self.get_text(wc),
+                         distrib: self.get_text(dist))
+      course.save
 
-    return course
-  end
+      # # If the course is available
+      # if course.available?
+      #   # Email user
+      # end
 
-  def available?
-    self.limit == 0 || self.limit.nil? || self.enrollment < self.limit
-  end
+      course_set.push(course)
 
-  def watched_by?(user)
-    self.course_selections.find_by(user_id: user.id)
+      # Go to next row (course section)
+      row = row.next
+    end
+
+    return course_set
   end
 
 
   private
 
     # private helper function for initializer
-    def Course.get_text(node)
+    def self.get_text(node)
       text = node.text
       if text.nil? || text.empty? || text == "&nbsp"
         return nil

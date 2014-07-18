@@ -15,11 +15,23 @@ describe Course do
 
   describe "when a duplicate course is created" do
     before do
+      @course.section = 2
       duplicate_course = @course.dup
       duplicate_course.save
     end
 
     it { should_not be_valid }
+  end
+
+  describe "when a course with a different section is created" do
+    before do
+      @course.section = 2
+      duplicate_course = @course.dup
+      duplicate_course.section = 3
+      duplicate_course.save
+    end
+
+    it { should be_valid }
   end
 
   ###### COURSE SUBJECT ######
