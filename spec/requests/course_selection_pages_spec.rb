@@ -4,6 +4,7 @@ describe "CourseSelectionPages" do
   let(:user) { FactoryGirl.create(:user) }
   subject { page }
   let(:add_course) { "Add course" }
+  let(:delete_course) { "Unwatch Course" }
 
   ##### NEW COURSE SELECTION ######
 
@@ -116,5 +117,18 @@ describe "CourseSelectionPages" do
     end
 
     it { should have_title("COSC 30") }
+    it { should have_button(delete_course) }
+
+    describe "clicking the delete course button" do
+      
+      it "should delete the course from the user's course selections" do
+        expect { click_button delete_course }.to change(user.courses, :count).by(-1)
+      end
+
+      it "should not delete the actual course from the database" do
+        expect { click_button delete_course }.not_to change(Course.all, :count)
+      end
+    end 
   end
+
 end

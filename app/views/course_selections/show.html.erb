@@ -12,3 +12,11 @@
   Instructor:
   <%= @course.instructor %>
 </p>
+
+<%= form_for @course_selection, html: { method: :delete } do |f| %>
+  <%= f.submit "Unwatch Course", class: "btn btn-danger" %>
+<% end %>
+
+<ul class="pager">
+  <li><%= link_to "Back to profile", user_path(current_user) %></li>
+</ul>

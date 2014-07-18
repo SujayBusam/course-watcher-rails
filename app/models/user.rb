@@ -77,28 +77,6 @@ class User < ActiveRecord::Base
         end
       end
     end
-
-
-
-
-
-    # # If the course already exists in the database, create a course selection,
-    # # otherwise create a course (which will also create the course selection)
-    # course = Course.find_by(subject: course_subject, number: course_number)
-    # if course
-    #   self.course_selections.create(course_id: course.id)
-    # else
-    #   course = Course.validate_and_init(self, course_subject, course_number)
-
-    #   if course.nil?
-    #     course = self.courses.build(subject: course_subject, number: course_number)
-    #     course.errors.add(:base, "#{course_subject} #{course_number} 
-    #       isn't a valid course this term.") if course.errors.empty?
-    #   end
-    #   return course
-    # end
-
-
   end
 
   def unwatch!(other_course)

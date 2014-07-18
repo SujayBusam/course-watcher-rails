@@ -12,8 +12,8 @@
       <th>Availability</th>
       <th>Instructor</th>
       <th>Period</th>
+      <th>Limit</th>
       <th>Enrollment</th>
-      <th>Status</th>
       <th></th>
     </tr>
   </thead>
@@ -30,14 +30,8 @@
         <% end %>
         <td><%= course.instructor %></td>
         <td><%= course.period %></td>
+        <td><%= course.limit %></td>
         <td><%= course.enrollment %></td>
-        <td>
-          <% if course.status.nil? %>
-            N/A
-          <% else %>
-            <%= course.status %>
-          <% end %>  
-        </td>
         <td>
           <%= form_tag course_selections_path do %>
             <div>

@@ -65,8 +65,8 @@ class CourseSelectionsController < ApplicationController
       else
         if @course.errors.empty?
           # Potential Ajax implementation here!
-          flash[:success] = "Course: #{@course_set.first.subject} 
-                            #{@course_set.first.number} added."
+          flash[:success] = "#{@course_set.first.subject} #{@course_set.first.number} 
+          section #{@course_set.first.section} added."
           redirect_to user_path(current_user)
         else
           render 'new'
@@ -77,7 +77,11 @@ class CourseSelectionsController < ApplicationController
   end
 
   def destroy
-    
+    course = CourseSelection.find(params[:id]).course
+    current_user.unwatch!(course)
+    flash[:warning] = "#{course.subject} #{course.number} section #{course.section} 
+    removed from your watchlist."
+    redirect_to user_path(current_user)
   end
 
   private

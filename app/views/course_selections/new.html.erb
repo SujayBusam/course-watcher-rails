@@ -6,16 +6,20 @@
 
 <% if @course_set && @course_set.count > 1 %>
 
-  <div class="alert alert-dismissable alert-warning">
-    <p>
+  <div class="panel panel-warning">
+    <div class="panel-heading">
+      <h3 class="panel-title">Alert</h3>
+    </div>
+    <div class="panel-body">
       The course you selected has multiple sections and/or labs. Please specify
       which one you'd like to watch.
-    </p>
+    </div>
   </div>
   
   <%= render 'sections_table' %>
 
 <% end %>
 
-<%= link_to "Back to profile", user_path(current_user), class: "btn btn-default" %>
-
+<ul class="pager">
+  <li><%= link_to "Back to profile", user_path(current_user) %></li>
+</ul>
