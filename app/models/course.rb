@@ -15,7 +15,7 @@ class Course < ActiveRecord::Base
   
 
   def available?
-    self.limit == 0 || self.limit.nil? || self.enrollment < self.limit
+    self.limit == 0 || self.limit == nil || self.enrollment < self.limit
   end
 
   def watched_by?(user)

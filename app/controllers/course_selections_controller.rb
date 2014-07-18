@@ -4,7 +4,6 @@ class CourseSelectionsController < ApplicationController
 
   def new
     @course = Course.new
-    @course_selection = CourseSelection.new
   end
 
   def show
@@ -47,13 +46,14 @@ class CourseSelectionsController < ApplicationController
   def create
     @input_subject = params[:course_subject].strip.upcase
     @input_number = params[:course_number].to_i
+    @input_section = params[:course_section]
 
     # Make the user watch the course if not already watching it
-    if current_user.watching_course?(@input_subject, @input_number)
+    if current_user.watching_course?(@input_subject, @input_number, @input_section)
       flash[:danger] = "You're already watching #{@input_subject} #{@input_number}."
       redirect_to new_course_selection_path
     else
-      @course_set = current_user.watch(@input_subject, @input_number)
+      @course_set = current_user.watch(@input_subject, @input_number, @input_section)
       @course = @course_set.first
 
       # The course has several sections and/or labs. User needs to specify 

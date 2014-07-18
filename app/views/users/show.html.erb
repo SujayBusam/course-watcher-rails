@@ -19,11 +19,10 @@
     <thead>
       <tr>
         <th>Course</th>
+        <th>Section</th>
         <th>Availability</th>
         <th>Instructor</th>
         <th>Period</th>
-        <th>Enrollment</th>
-        <th>Status</th>
         <th></th>
       </tr>
     </thead>
@@ -31,6 +30,7 @@
       <% @courses.each do |course| %>
         <tr class="info">
           <td><%= course.subject %> <%= course.number %></td>
+          <td><%= course.section %></td>
           <% if course.available? %>
             <td class="text-success" id="availability">Available</td>
           <% else %>
@@ -38,14 +38,6 @@
           <% end %>
           <td><%= course.instructor %></td>
           <td><%= course.period %></td>
-          <td><%= course.enrollment %></td>
-          <td>
-            <% if course.status.nil? %>
-              N/A
-            <% else %>
-              <%= course.status %>
-            <% end %>  
-          </td>
           <td><a href="<%= course_selection_path(course.id) %>">More info</a></td>
         </tr>    
       <% end %>

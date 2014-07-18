@@ -28,42 +28,53 @@ class User < ActiveRecord::Base
 
   # Course selection methods
 
-  def watch(course_subject, course_number)
-    # Check if any courses with given subj and number are in database
-    course_set = Course.where(subject: course_subject, number: course_number)
-
-    if course_set.empty?
-      # No matching courses in database, so validate and initialize all 
-      # sections of this course
-      course_set = Course.validate_and_init(course_subject, course_number)
-
-      if course_set
-        # Validation successful. Create the course selection of there is one section
-        # and return the set of courses (all sections)
-        if course_set.count == 1
-          course_built = course_set.first
-          course_in_db = Course.find_by(subject: course_built.subject,
-                                        number: course_built.number,
-                                        section: course_built.section)
-          self.course_selections.create(course_id: course_in_db.id)
-        end
-        return course_set
-      else
-        # Validation not successful. Return a course object with an error
-        course_set = Array.new
-        course = Course.create(subject: course_subject, number: course_number)
-        course.errors.add(:base, "#{course_subject} #{course_number} 
-                          isn't a valid course this term.") if course.errors.empty?
-        course_set.push(course)
-      end
+  def watch(course_subject, course_number, course_section=nil)
+    if course_section
+      course_set = Course.where(subject: course_subject, 
+                                number: course_number,
+                                section: course_section)
+      self.course_selections.create(course_id: course_set.first.id)
+      return course_set
     else
-      if course_set.count > 1
-        # Multiple sections. Return the set of all of them
-        return course_set
+      # Check if any courses with given subj and number are in database
+      course_set = Course.where(subject: course_subject, number: course_number)
+
+      if course_set.empty?
+        # No matching courses in database, so validate and initialize all 
+        # sections of this course
+        course_set = Course.validate_and_init(course_subject, course_number)
+
+        if course_set
+          # Validation successful. Create the course selection of there is one section
+          # and return the set of courses (all sections)
+          if course_set.count == 1
+            course_built = course_set.first
+            course_in_db = Course.find_by(subject: course_built.subject,
+                                          number: course_built.number,
+                                          section: course_built.section)
+            self.course_selections.create(course_id: course_in_db.id)
+          end
+          return course_set
+        else
+          # Validation not successful. Return a course object with an error
+          course_set = Array.new
+          course = Course.create(subject: course_subject, number: course_number)
+          if course.errors.empty?
+            course.errors.add(:base, "#{course_subject} #{course_number} 
+                            isn't a valid course this term.")
+            Course.find_by(subject: course_subject, number: course_number).destroy
+          end
+          course_set.push(course)
+        end
       else
-        # Only one section. Create the course selection and return the course set
-        self.course_selections.create(course_id: course_set.first.id)
-        return course_set
+        if course_set.count > 1
+          # Multiple sections. Return the set of all of them
+          return course_set
+        else
+          # Only one section. Create the course selection and return the course set
+          self.course_selections.create(course_id: course_set.first.id)
+          return course_set
+        end
       end
     end
 
@@ -124,11 +135,18 @@ class User < ActiveRecord::Base
   # following it, a CourseSelection if course is in db and user is following it,
   # and an ActiveRecord::Relation (set of courses) if there are multiple sections
   # of the course
-  def watching_course?(course_subject, course_number)
-    course_set = Course.where(subject: course_subject, number: course_number)
+  def watching_course?(course_subject, course_number, course_section)
+    if course_section
+      course = Course.find_by(subject: course_subject, 
+                              number: course_number,
+                              section: course_section)
+      self.watching?(course)
+    else
+      course_set = Course.where(subject: course_subject, number: course_number)
 
-    unless course_set.empty?
-      self.watching?(course_set.first) unless course_set.count > 1
+      unless course_set.empty?
+        self.watching?(course_set.first) unless course_set.count > 1
+      end
     end
   end
 

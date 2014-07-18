@@ -5,14 +5,14 @@
 
       <%= render 'shared/error_messages', object: @course %>
       
-     <%= label_tag :course_subject, "Course Subject", 
+      <%= label_tag :course_subject, "Course Subject", 
                     class: "col-lg-2 control-label" %> 
       <div class="col-lg-10">
         <%= text_field_tag :course_subject, params[:course_subject], 
         id: "inputSubject", class: "form-control", placeholder: "e.g. COSC" %>
       </div>
 
-     <%= label_tag :course_number, "Course Number", 
+      <%= label_tag :course_number, "Course Number", 
                     class: "col-lg-2 control-label" %> 
       <div class="col-lg-10">
         <%= text_field_tag :course_number, params[:course_number], 

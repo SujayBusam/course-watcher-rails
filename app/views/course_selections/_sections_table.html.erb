@@ -39,7 +39,14 @@
           <% end %>  
         </td>
         <td>
-          
+          <%= form_tag course_selections_path do %>
+            <div>
+              <%= hidden_field_tag 'course_subject', @input_subject %>
+              <%= hidden_field_tag 'course_number', @input_number %>
+              <%= hidden_field_tag 'course_section', course.section %>
+            </div>
+            <%= submit_tag "Select", class: "btn btn-primary btn-xs" %>
+          <% end %>
         </td>
       </tr>    
     <% end %>
