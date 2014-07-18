@@ -4,6 +4,7 @@ class CourseSelectionsController < ApplicationController
 
   def new
     @course = Course.new
+    @course_selection = CourseSelection.new
   end
 
   def show
