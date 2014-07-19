@@ -12,7 +12,7 @@ task update_course_attributes: :environment do
     # Get all associated course selections
     course_selections = CourseSelection.where(course_id: course.id)
 
-    if course_selections.count > 0
+    unless course_selections.empty?
       post_data = { "classyear" => "2008", # Not sure why this is the case, but necessary for request
                   "subj" => "#{course.subject}",
                   "crsenum" => "#{course.number}" } 
@@ -25,9 +25,13 @@ task update_course_attributes: :environment do
 
       table = page.at_css('div.data-table')
 
-      # if table.child.child.next is valid. In other words, is there a row there, or
-      # only the header of the table?
-      row = table.child.child.next.next
+      # Row currently before first section
+      row = table.child.child.next
+
+      # Move to correct row (section)
+      course.section.to_i.times do
+        row = row.next
+      end
 
       # Table columns (nodes, not the text!)
       term = row.child
@@ -48,18 +52,16 @@ task update_course_attributes: :environment do
       status = enrl.next
 
       # Update course attributes
-      course.update_attributes(instructor: instructor.text,
-                               limit: lim.text,
-                               enrollment: enrl.text,
-                               status: status.text)
+      course.update_attributes(instructor: Course.get_text(instructor),
+                               limit: Course.get_text(lim),
+                               enrollment: Course.get_text(enrl),
+                               status: Course.get_text(status))
 
       # If the course is available
       if enrl.text.to_i < lim.text.to_i || lim.text.to_i == 0
         # Email user
       end
 
-    else
-      course.destroy
     end
 
   end

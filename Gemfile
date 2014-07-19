@@ -51,6 +51,8 @@ gem 'faker', '1.1.2'
 
 gem 'nokogiri', '1.6.2.1'
 
+gem 'clockwork'
+
 
 group :development, :test do
   gem 'rspec-rails', '2.13.1'
