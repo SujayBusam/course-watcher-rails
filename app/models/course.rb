@@ -157,7 +157,7 @@ class Course < ActiveRecord::Base
         course.update_attributes(instructor: self.get_text(instructor),
                                  limit: self.get_text(lim),
                                  enrollment: self.get_text(enrl),
-                                 status: "updated")
+                                 status: self.get_text(status))
 
         # If the course is available
         if enrl.text.to_i < lim.text.to_i || lim.text.to_i == 0

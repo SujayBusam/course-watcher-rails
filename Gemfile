@@ -52,6 +52,7 @@ gem 'faker', '1.1.2'
 gem 'nokogiri', '1.6.2.1'
 
 gem 'clockwork'
+gem 'heroku-api'
 
 
 group :development, :test do
