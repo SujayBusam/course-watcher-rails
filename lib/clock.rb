@@ -17,10 +17,6 @@ include Clockwork
 # puts "testing clockwork"
 
 
- 
 every(20.seconds, 'Update Attributes') do
-  heroku = Heroku::API.new(api_key: '764626c9-b48d-43a2-a71f-4b060c88fd13') 
-  heroku.post_ps_scale("coursewatch", "clock", "1")
   Course.update_attributes
-  heroku.post_ps_scale("coursewatch", "clock", "0")
 end
