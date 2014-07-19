@@ -1,25 +1,29 @@
-<%= form_tag course_selections_path, class: "form-horizontal" do %>
+<div class="well bs-component">
+  <%= form_tag course_selections_path, class: "form-horizontal" do %>
   <fieldset>
     <legend>Choose a course</legend>
+    <%= render 'shared/error_messages', object: @course %>
+    
     <div class="form-group">
-
-      <%= render 'shared/error_messages', object: @course %>
-      
       <%= label_tag :course_subject, "Course Subject", 
                     class: "col-lg-2 control-label" %> 
       <div class="col-lg-10">
         <%= text_field_tag :course_subject, params[:course_subject], 
         id: "inputSubject", class: "form-control", placeholder: "e.g. COSC" %>
       </div>
+    </div>
 
+    <div class="form-group">
       <%= label_tag :course_number, "Course Number", 
                     class: "col-lg-2 control-label" %> 
       <div class="col-lg-10">
         <%= text_field_tag :course_number, params[:course_number], 
         id: "inputNumber", class: "form-control", placeholder: "e.g. 50" %>
       </div>
-      
-      <%= submit_tag "Add course", class: "btn btn-success" %>
     </div>
+
+    <%= submit_tag "Add course", class: "btn btn-success" %>
+
   </fieldset>
-<% end %>
+  <% end %>
+</div>
