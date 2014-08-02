@@ -9,7 +9,8 @@ class CourseSelectionsController < ApplicationController
   def show
     @user = current_user
     @course = Course.find(params[:id])
-    @course_selection = CourseSelection.find_by(user_id: @user.id, course_id: @course.id)
+    @course_selection = CourseSelection.find_by(user_id: @user.id, 
+                                                course_id: @course.id)
     @title = "#{@course.subject} #{@course.number}"
   end
 
@@ -19,11 +20,13 @@ class CourseSelectionsController < ApplicationController
     @input_section = params[:course_section]
 
     # Make the user watch the course if not already watching it
-    if current_user.watching_course?(@input_subject, @input_number, @input_section)
+    if current_user.watching_course?(@input_subject, @input_number, 
+                                     @input_section)
       flash[:danger] = "You're already watching #{@input_subject} #{@input_number}."
       redirect_to new_course_selection_path
     else
-      @course_set = current_user.watch(@input_subject, @input_number, @input_section)
+      @course_set = current_user.watch(@input_subject, @input_number, 
+                                       @input_section)
       @course = @course_set.first
 
       # The course has several sections and/or labs. User needs to specify 

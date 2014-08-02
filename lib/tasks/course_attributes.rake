@@ -55,7 +55,7 @@ task update_course_attributes: :environment do
       course.update_attributes(instructor: Course.get_text(instructor),
                                limit: Course.get_text(lim),
                                enrollment: Course.get_text(enrl),
-                               status: "Course.get_text(status)")
+                               status: Course.get_text(status))
 
       # If the course is available
       if enrl.text.to_i < lim.text.to_i || lim.text.to_i == 0
