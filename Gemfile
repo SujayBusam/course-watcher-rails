@@ -53,6 +53,7 @@ gem 'nokogiri', '1.6.2.1'
 
 gem 'clockwork'
 gem 'heroku-api'
+gem 'delayed_job_active_record'
 
 
 
