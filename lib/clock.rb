@@ -18,5 +18,5 @@ include Clockwork
 
 
 every(20.seconds, 'Update Attributes') do
-  Course.update_attributes
+  Course.update_courses_stats
 end

@@ -72,7 +72,8 @@ class User < ActiveRecord::Base
           return course_set
         else
           # Only one section. Create the course selection and return the course set
-          self.course_selections.create(course_id: course_set.first.id)
+          course = course_set.first
+          self.course_selections.create(course_id: course.id)
           return course_set
         end
       end
