@@ -4,4 +4,6 @@ class CourseSelection < ActiveRecord::Base
 
   validates :user, presence: true
   validates :course, presence: true
+
+  
 end
