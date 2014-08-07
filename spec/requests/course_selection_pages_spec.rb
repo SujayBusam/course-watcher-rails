@@ -53,23 +53,6 @@ describe "CourseSelectionPages" do
       end
     end
 
-    describe "with valid information" do
-      before do
-        fill_in "inputSubject", with: "COSC"
-        fill_in "inputNumber", with: "30"
-      end
-
-      it "should create a course selection" do
-        expect { click_button add_course }.to change(CourseSelection, :count).by(1)
-      end
-
-      describe "should redirect to user show page" do
-        before { click_button(add_course) }
-
-        it { should have_title(user.name) }
-      end
-    end
-
     describe "trying to add same course twice" do
       before do
         2.times do
@@ -102,6 +85,25 @@ describe "CourseSelectionPages" do
       it { should have_content("ECON 1") }
       it { should have_content("Section") }
     end
+
+    # Valid course selection
+    describe "with valid information" do
+      before do
+        fill_in "inputSubject", with: "COSC"
+        fill_in "inputNumber", with: "30"
+      end
+
+      it "should create a course selection" do
+        expect { click_button add_course }.to change(CourseSelection, :count).by(1)
+      end
+
+      describe "should redirect to user show page" do
+        before { click_button(add_course) }
+
+        it { should have_title(user.name) }
+      end
+    end
+    
   end
 
   ##### COURSE SELECTION SHOW ######

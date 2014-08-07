@@ -40,6 +40,11 @@ class CourseSelectionsController < ApplicationController
           # Potential Ajax implementation here!
           flash[:success] = "#{@course_set.first.subject} #{@course_set.first.number} 
           section #{@course_set.first.section} added."
+
+          # Initialize notification attributes of the course selection
+          CourseSelection.find_by(user_id: current_user.id, 
+                                  course_id: @course.id).init_notification_attributes
+
           redirect_to user_path(current_user)
         else
           render 'new'

@@ -14,8 +14,13 @@ describe CourseSelection do
   describe "user-course methods" do
     it { should respond_to(:user) }
     it { should respond_to(:course) }
+    it { should respond_to(:user_needs_notified) }
+    it { should respond_to(:course_initially_available) }
+
     its(:user) { should eq user }
     its(:course) { should eq course }
+    its(:user_needs_notified) { should be_true }
+    its(:course_initially_available) { should be_false }
   end
 
   describe "when user id is not present" do

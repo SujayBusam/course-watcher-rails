@@ -162,7 +162,7 @@ class Course < ActiveRecord::Base
 
   def self.get_text(node)
     text = node.text
-    if text.nil? || text.empty? || text == "&nbsp"
+    if text.nil? || text.empty? || text == "&nbsp" || text == "&nbsp;"
       return nil
     else
       return text
