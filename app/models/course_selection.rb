@@ -20,13 +20,13 @@ class CourseSelection < ActiveRecord::Base
         if course_selection.user_needs_notified
           UserMailer.course_notification_email(course_selection.user,
                                                course_selection.course).deliver
-          course_selection.user_needs_notified = false
+          course_selection.update_attribute(:user_needs_notified, false)
           puts "Emailed #{course_selection.user.name} about 
           #{course_selection.course.subject} #{course_selection.course.number}"
         end
       else
         if course_selection.course_initially_available
-          course_selection.user_needs_notified = true
+          course_selection.update_attribute(:user_needs_notified, true)
         end
       end
     end
