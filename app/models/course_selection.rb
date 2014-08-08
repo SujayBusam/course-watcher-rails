@@ -21,6 +21,8 @@ class CourseSelection < ActiveRecord::Base
           UserMailer.course_notification_email(course_selection.user,
                                                course_selection.course).deliver
           course_selection.user_needs_notified = false
+          puts "Emailed #{course_selection.user.name} about 
+          #{course_selection.course.subject} #{course_selection.course.number}"
         end
       else
         if course_selection.course_initially_available

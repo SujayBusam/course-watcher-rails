@@ -1,16 +1,13 @@
 class CourseSelectionsController < ApplicationController
   before_action :signed_in_user
-  # TODO correct user check for showing and deleting course selections
+  before_action :correct_course_selection, only: [:show]
+  # TODO check for deleting course selections
 
   def new
     @course = Course.new
   end
 
   def show
-    @user = current_user
-    @course = Course.find(params[:id])
-    @course_selection = CourseSelection.find_by(user_id: @user.id, 
-                                                course_id: @course.id)
     @title = "#{@course.subject} #{@course.number}"
   end
 
@@ -71,4 +68,16 @@ class CourseSelectionsController < ApplicationController
         redirect_to signin_path
       end
     end
+
+    def correct_course_selection
+      @user = current_user
+      @course = Course.find(params[:id])
+      @course_selection = CourseSelection.find_by(user_id: @user.id, 
+                                                  course_id: @course.id)
+      if @course_selection.nil?
+        flash[:warning] = "Not authorized to view that page!"
+        redirect_to @user
+      end
+    end
+
 end
