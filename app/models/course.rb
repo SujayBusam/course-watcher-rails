@@ -81,12 +81,6 @@ class Course < ActiveRecord::Base
                          world_culture: self.get_text(wc),
                          distrib: self.get_text(dist))
       course.save
-
-      # # If the course is available
-      # if course.available?
-      #   # Email user
-      # end
-
       course_set.push(course)
 
       # Go to next row (course section)
@@ -146,16 +140,10 @@ class Course < ActiveRecord::Base
     status = enrl.next
 
     # Update course attributes
-    self.update_attributes(instructor: self.get_text(instructor),
-                             limit: self.get_text(lim),
-                             enrollment: self.get_text(enrl),
-                             status: self.get_text(status))
-
-    # If the course is available
-    if enrl.text.to_i < lim.text.to_i || lim.text.to_i == 0
-      # Email user
-    end
-
+    self.update_attributes(instructor: Course.get_text(instructor),
+                             limit: Course.get_text(lim),
+                             enrollment: Course.get_text(enrl),
+                             status: Course.get_text(status))
 
   end
 
