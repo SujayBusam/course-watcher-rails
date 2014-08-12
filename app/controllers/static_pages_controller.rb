@@ -1,6 +1,7 @@
 class StaticPagesController < ApplicationController
 
   def home
+    @user = User.new
     @current_page = 'home'
   end
 
@@ -8,11 +9,8 @@ class StaticPagesController < ApplicationController
     @current_page = 'about'
   end
 
-  def help
-    @current_page = 'help'
+  def contact
+    @current_page = 'contact'
   end
 
-  def faq
-    @current_page = 'faq'
-  end
 end

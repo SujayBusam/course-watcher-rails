@@ -14,11 +14,12 @@ class UsersController < ApplicationController
       # redirect_to user_path(@user)
       redirect_to @user
     else
-      render 'new'
+      render template: "static_pages/home"
     end
   end
 
   def show
+    @current_page = 'profile'
     @user = User.find(params[:id])
     @courses = @user.courses
   end
