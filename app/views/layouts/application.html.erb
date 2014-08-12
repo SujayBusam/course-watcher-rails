@@ -7,13 +7,16 @@
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
   <%= render 'layouts/shim' %>
 </head>
 
 <body>
-  <%= render 'layouts/header' %>
-  <div class="body-container, container">
+  <div class="page-wrapper">
+    <%= render 'layouts/header' %>
 
     <% flash.each do |key, value| %>
       <div class="alert alert-dismissable alert-<%= key %>">
@@ -24,10 +27,10 @@
 
     <%= yield %>
 
+    <%= render 'layouts/footer' %>
   </div>
-  
-  <%= render 'layouts/footer' %>
-
 </body>
+  
   <%= debug(params) if Rails.env.development? %>
+
 </html>
