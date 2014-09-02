@@ -26,17 +26,20 @@
               <%= link_to "CONTACT", contact_path %>
             </li>
           </ul>
+          <% unless @current_page.eql?  "signin" %>
+            <form class="navbar-form pull-left">
+              <% unless signed_in? %>
+                <%= link_to "SIGN IN", signin_path, class: "btn btn-primary" %>
+              <% else %>
+                <%= link_to "SIGN OUT", signout_path, method: "delete",
+                class: "btn btn-primary" %>
+              <% end %>
+            </form>
+          <% end %>
 
-          <form class="navbar-form pull-left">
-            <% if !signed_in? %>
-              <%= link_to "SIGN IN", signin_path, class: "btn btn-primary" %>
-            <% else %>
-              <%= link_to "SIGN OUT", signout_path, method: "delete",
-              class: "btn btn-primary" %>
-            <% end %>
-          </form>
         </div>
       </div>
     </div>
+
   </div>
 </header>

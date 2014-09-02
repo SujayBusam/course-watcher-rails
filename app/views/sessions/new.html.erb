@@ -1,31 +1,29 @@
 <% provide(:title, 'Sign in') %>
 
-<div class="well bs-component">
-  <%= form_for(:session, url: sessions_path, class: "form-horizontal") do |f| %>
-  <fieldset>
-    <legend>Sign in</legend>
-
-    <div class="form-group">
-      <%= f.label :email, class: "col-lg-2 control-label" %> 
-      <div class="col-lg-10 account-field">
-        <%= f.text_field :email, id: "inputEmail", class: "form-control" %>
+<div class="container" id="container-login">
+  <div class="login">
+    <div class="login-screen">
+      <div class="login-icon">
+        <%= image_tag('pencils.png', alt: 'Login Icon') %>
+        <h4>Welcome to <small>CourseWatch</small></h4>
       </div>
-    </div>
-    
-    <div class="form-group">
-      <%= f.label :password, class: "col-lg-2 control-label" %> 
-      <div class="col-lg-10 account-field">
-        <%= f.password_field :password, id: "inputPassword", class: "form-control" %>
+      
+      <div class="login-form">
+        <%= form_for(:session, url: sessions_path) do |f| %>
+          <div class="form-group">
+            <%= f.text_field :email, id: "inputEmail", class: "form-control login-field", placeholder: "Email" %>
+            <label class="login-field-icon fui-user" for="inputEmail"></label>
+          </div>
+
+          <div class="form-group">
+            <%= f.password_field :password, id: "imputPassword", class: "form-control login-field", placeholder: "Password" %>
+            <label class="login-field-icon fui-lock" for="inputPassword"></label>
+          </div>
+
+          <%= f.submit "Login", class: "btn btn-primary btn-lg btn-block" %>
+        <% end %>
       </div>
+      <p>Not yet a member? <%= link_to "Register", new_user_path %></p>
     </div>
-
-      <%= f.submit "Sign in", class: "btn btn-primary btn-lg" %>
-
-  </fieldset>
-  <% end %>
-
-  
+  </div>
 </div>
-
-<p>Not yet a member? <%= link_to "Register", new_user_path %>.</p>
-

@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
 
   def new
-
+    @current_page = "signin"
   end
 
   def create
