@@ -10,6 +10,6 @@ def sign_in(user, options={})
     visit signin_path
     fill_in "inputEmail", with: user.email
     fill_in "inputPassword", with: user.password
-    click_button "Sign in"
+    click_button "Login"
   end
 end

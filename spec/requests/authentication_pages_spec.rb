@@ -6,7 +6,6 @@ describe "Authentication" do
   describe "Sign in page" do
     before { visit signin_path }
 
-    it { should have_content('Sign in') }
     it { should have_title('Sign in') }
   end
 
@@ -14,7 +13,7 @@ describe "Authentication" do
     before { visit signin_path }
 
     describe "with invalid information" do
-      before { click_button "Sign in" }
+      before { click_button "Login" }
 
       it { should have_title('Sign in') }
       it { should have_selector('div.alert.alert-danger') }
@@ -31,13 +30,13 @@ describe "Authentication" do
       before { sign_in user }
 
       it { should have_title(user.name) }
-      it { should have_link('PROFILE', href: user_path(user)) }
+      it { should have_link('Profile', href: user_path(user)) }
       it { should have_link('Settings', href: edit_user_path(user)) }
-      it { should have_link('SIGN OUT', href: signout_path) }
+      it { should have_link('Sign Out', href: signout_path) }
       it { should_not have_link('SIGN IN', href: signin_path) }
 
       describe "followed by signout" do
-        before { click_link "SIGN OUT" }
+        before { click_link "Sign Out" }
         it { should have_link("Sign in") }
       end
     end

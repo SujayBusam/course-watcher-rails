@@ -12,18 +12,19 @@
         <%= form_for(:session, url: sessions_path) do |f| %>
           <div class="form-group">
             <%= f.text_field :email, id: "inputEmail", class: "form-control login-field", placeholder: "Email" %>
-            <label class="login-field-icon fui-user" for="inputEmail"></label>
+            <label class="login-field-icon fui-mail" for="inputEmail"></label>
           </div>
 
           <div class="form-group">
-            <%= f.password_field :password, id: "imputPassword", class: "form-control login-field", placeholder: "Password" %>
+            <%= f.password_field :password, id: "inputPassword", class: "form-control login-field", placeholder: "Password" %>
             <label class="login-field-icon fui-lock" for="inputPassword"></label>
           </div>
 
           <%= f.submit "Login", class: "btn btn-primary btn-lg btn-block" %>
+          <%= link_to "New member? Register here", new_user_path, class: "login-link" %>
         <% end %>
       </div>
-      <p>Not yet a member? <%= link_to "Register", new_user_path %></p>
+      
     </div>
   </div>
 </div>

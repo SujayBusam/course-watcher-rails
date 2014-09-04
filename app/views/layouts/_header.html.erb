@@ -4,39 +4,43 @@
       <div class="navbar col-sm-12" role="navigation">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle"></button>
-          <%= link_to(image_tag("logo@2x.png", size: '50x50', alt: "Logo") + 
-            "CourseWatch", root_path, class: 'brand') %>
+          <%= link_to("CourseWatch", root_path, class: 'brand') %>
         </div>
         <div class="collapse navbar-collapse pull-right">
           <!-- Nav header elements / links to pages -->
           <ul class="nav pull-left">
-            <% if !signed_in? %>
-              <li class=<%= "active" if @current_page.eql? "home" %>>
-                <%= link_to "HOME", root_path %>
-              </li>
-            <% else %>
-              <li class=<%= "active" if @current_page.eql? "profile" %>>
-                <%= link_to "PROFILE", user_path(current_user) %>
-              </li>
-            <% end %>
+            <li class=<%= "active" if @current_page.eql? "home" %>>
+              <%= link_to "HOME", root_path %>
+            </li>
             <li class=<%= "active" if @current_page.eql? "about" %>>
               <%= link_to "ABOUT", about_path %>
             </li>
             <li class=<%= "active" if @current_page.eql? "contact" %>>
               <%= link_to "CONTACT", contact_path %>
             </li>
-          </ul>
-          <% unless @current_page.eql?  "signin" %>
-            <form class="navbar-form pull-left">
-              <% unless signed_in? %>
-                <%= link_to "SIGN IN", signin_path, class: "btn btn-primary" %>
-              <% else %>
-                <%= link_to "SIGN OUT", signout_path, method: "delete",
-                class: "btn btn-primary" %>
-              <% end %>
-            </form>
-          <% end %>
+          
+            <% unless @current_page.eql?  "signin" %>
 
+              <% unless signed_in? %>
+                <form class="navbar-form pull-left">
+                  <%= link_to "SIGN IN", signin_path, class: "btn btn-primary" %>
+                </form>
+              <% else %>
+                <form class="navbar-form pull-left">
+                  <li class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">PROFILE<span class="caret"></span></button>
+                    <span class="dropdown-arrow dropdown-arrow-inverse"></span>
+                    <ul class="dropdown-menu dropdown-inverse">
+                      <li><%= link_to "Watchlist", user_path(current_user) %></li>
+                      <li><%= link_to "Settings", edit_user_path(current_user) %></li>
+                      <li class="divider"></li>
+                      <li><%= link_to "Sign Out", signout_path, method: :delete %></li>
+                    </u>
+                  </li>
+                </form>
+              <% end %>
+            <% end %>
+          </ul>
         </div>
       </div>
     </div>

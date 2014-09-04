@@ -1,25 +1,29 @@
 <% provide(:title, "New Course") %>
 
-<h1>Start watching courses</h1>
+<div class="container">
 
-<%= render 'course_selection_form' %>
+  <h1>Start watching courses</h1>
 
-<% if @course_set && @course_set.count > 1 %>
+  <%= render 'course_selection_form' %>
 
-  <div class="panel panel-warning">
-    <div class="panel-heading">
-      <h3 class="panel-title">Selection Alert</h3>
+  <% if @course_set && @course_set.count > 1 %>
+
+    <div class="panel panel-warning">
+      <div class="panel-heading">
+        <h3 class="panel-title">Selection Alert</h3>
+      </div>
+      <div class="panel-body">
+        The course you selected has multiple sections and/or labs. Please specify
+        which one you'd like to watch.
+      </div>
     </div>
-    <div class="panel-body">
-      The course you selected has multiple sections and/or labs. Please specify
-      which one you'd like to watch.
-    </div>
-  </div>
-  
-  <%= render 'sections_table' %>
+    
+    <%= render 'sections_table' %>
 
-<% end %>
+  <% end %>
 
-<ul class="pager">
-  <li><%= link_to "Back to profile", user_path(current_user) %></li>
-</ul>
+  <ul class="pager">
+    <li><%= link_to "Back to profile", user_path(current_user) %></li>
+  </ul>
+
+</div>

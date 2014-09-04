@@ -14,7 +14,7 @@ class UsersController < ApplicationController
       # redirect_to user_path(@user)
       redirect_to @user
     else
-      render template: "static_pages/home"
+      render 'new'
     end
   end
 

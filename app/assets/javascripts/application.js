@@ -13,6 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
-//= require startup_framework
 //= require bootstrap-sprockets
+//= require startup_framework
+//= require_tree .

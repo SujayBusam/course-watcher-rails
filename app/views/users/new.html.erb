@@ -1,45 +1,37 @@
 <% provide(:title, 'Sign Up') %>
 
-<h1>Create a free acount</h1>
+<div class="container" id="container-login">
+  <h1>Create a free acount</h1>
+  <div class="login-form general-form">
+    <%= form_for(@user) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
 
-<div class="well bs-component">
-  <%= form_for(@user, class: "form-horizontal") do |f| %>
-  <fieldset>
-    <legend>Sign up</legend>
-    <%= render 'shared/error_messages', object: f.object %>
+      <div class="form-group">  
+        <%= f.text_field :name, id: "inputName", class: "form-control login-field",
+        placeholder: "Name"%>
+        <label class="login-field-icon fui-user" for="inputName"></label>
+      </div>
+    
+      <div class="form-group">
+        <%= f.text_field :email, id: "inputEmail", class: "form-control login-field",
+        placeholder: "Email" %>
+        <label class="login-field-icon fui-mail" for="inputEmail"></label>
+      </div>
 
-    <div class="form-group">  
-      <%= f.label :name, class: "col-lg-2 control-label" %>
-      <div class="col-lg-10 account-field">
-        <%= f.text_field :name, id: "inputName", class: "form-control" %>
+      <div class="form-group">
+        <%= f.password_field :password, id: "inputPassword", class: "form-control login-field",
+        placeholder: "Password" %>
+        <label class="login-field-icon fui-lock" for="inputPassword"></label>
+      </div> 
+    
+      <div class="form-group">
+        <%= f.password_field :password_confirmation, id: "inputConfirmation", 
+        class: "form-control login-field", placeholder: "Confirm Password" %>
+        <label class="login-field-icon fui-lock" for="inputConfirmation"></label>
       </div>
-    </div>
-  
-    <div class="form-group">
-      <%= f.label :email, class: "col-lg-2 control-label" %>
-      <div class="col-lg-10 account-field">
-        <%= f.text_field :email, id: "inputEmail", class: "form-control" %>
-      </div>
-    </div>
 
-    <div class="form-group">
-      <%= f.label :password, class: "col-lg-2 control-label" %>
-      <div class="col-lg-10 account-field">
-        <%= f.password_field :password, id: "inputPassword", class: "form-control" %>
-      </div>
-    </div> 
-  
-    <div class="form-group">
-      <%= f.label :password_confirmation, "Confirmation", 
-                  class: "col-lg-2 control-label" %>
-      <div class="col-lg-10 account-field">
-        <%= f.password_field :password_confirmation, id: "inputConfirmation", class: "form-control" %>
-      </div>
-    </div>
-
-    <%= f.submit "Submit", class: "btn btn-primary"%>
-  </fieldset>
-  <% end %>
+      <%= f.submit "Submit", class: "btn btn-primary"%>
+    <% end %>
+  </div>
+  <p>Already a member? <%= link_to "Sign in", signin_path %>.</p>
 </div>
-
-<p>Already a member? <%= link_to "Sign in", signin_path %>.</p>
