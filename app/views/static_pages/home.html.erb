@@ -55,9 +55,38 @@
         <% end %>
       </div>
 
-      <div class="col-sm-7 col-sm-offset-1 player-wrapper">
-        <div class="player">
-         
+      <div class="col-sm-7 col-sm-offset-1">
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+          
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+            <div class="item active">
+              <%= image_tag('home-background.png') %>
+              <div class="carousel-caption">
+                ...
+              </div>
+            </div>
+            <div class="item">
+              <img src="..." alt="...">
+              <div class="carousel-caption">
+                ...
+              </div>
+            </div>
+            <div class="item">
+              <img src="..." alt="...">
+              <div class="carousel-caption">
+                ...
+              </div>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+          <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
         </div>
       </div>
     </div>
