@@ -1,32 +1,28 @@
 <% provide(:title, "Edit") %>
 
-<div class="container">
+<div class="container" id="container-login">
   <h1>Edit Your Account</h1>
-  <div class="well bs-component">
-    <%= form_for(@user, class: "form-horizontal") do |f| %>
-    <fieldset>
+  <div class="login-form general-form">
+    <%= form_for(@user) do |f| %>
       <legend>Update Profile</legend>
+      <%= render 'shared/error_messages', object: f.object %>
+
       <div class="form-group">
-        <%= render 'shared/error_messages', object: f.object %>
-
-        <%= f.label :email, class: "col-lg-2 control-label" %>
-        <div class="col-lg-10">
-          <%= f.text_field :email, id: "inputEmail", class: "form-control", placeholder: "New Email" %>
-        </div>
-
-        <%= f.label :password, class: "col-lg-2 control-label" %>
-        <div class="col-lg-10">
-          <%= f.password_field :password, id: "inputPassword", class: "form-control", placeholder: "New Password" %>
-        </div>
-
-        <%= f.label :password_confirmation, class: "col-lg-2 control-label" %>
-        <div class="col-lg-10">
-          <%= f.password_field :password_confirmation, id: "inputConfirmation", class: "form-control", placeholder: "Confirmation" %>
-        </div>
-
-        <%= f.submit "Save changes", class: "btn btn-primary btn-lg" %>
+        <%= f.text_field :email, id: "inputEmail", class: "form-control login-field", placeholder: "New Email" %>
+        <label class="login-field-icon fui-mail" for="inputEmail"></label>
       </div>
-    </fieldset>
+      
+      <div class="form-group">
+        <%= f.password_field :password, id: "inputPassword", 
+        class: "form-control login-field", placeholder: "New Password" %>
+        <label class="login-field-icon fui-lock" for="inputPassword"></label>
+      </div>
+      
+      <div class="form-group">
+        <%= f.password_field :password_confirmation, id: "inputConfirmation", class: "form-control login-field", placeholder: "Confirmation" %>
+        <label class="login-field-icon fui-lock" for="inputConfirmation"></label>
+      </div>
+      <%= f.submit "Save changes", class: "btn btn-primary btn-lg" %>
     <% end %>
   </div>
 </div>
