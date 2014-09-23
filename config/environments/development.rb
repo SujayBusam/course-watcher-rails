@@ -34,7 +34,7 @@ CourseWatcher::Application.configure do
   address:              'smtp.gmail.com',
   port:                 587,
   domain:               'CourseWatch.com',
-  user_name:            'sujay.busam@gmail.com',
+  user_name:            'CourseWatchDartmouth@gmail.com',
   password:             'barktreehouse',
   authentication:       'plain',
   enable_starttls_auto: true  }
